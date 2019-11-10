@@ -59,8 +59,10 @@ def image_downloader(img_url: str):
         return False
     # Trying to red image name from response headers
     try:
-        image_name = res.headers['X-File-Name']
-    except KeyError:
+        image_name = str(img_url[(img_url.rfind('/')) + 1:])
+        if '?' in image_name:
+            image_name = image_name[:image_name.find('?')]
+    except:
         image_name = str(random.randint(11111, 99999))+'.jpg'
 
     i = Image.open(io.BytesIO(res.content))
@@ -69,7 +71,12 @@ def image_downloader(img_url: str):
     return f'Download complete: {img_url}'
 
 
-def run_downloader(process, images_url):
+def run_downloader(process: int, images_url: list):
+    """
+    Inputs:
+        process: (int) number of process to run
+        images_url:(list) list of images url
+    """
     print(f'MESSAGE: Running {process} process')
     results = ThreadPool(process).imap_unordered(image_downloader, images_url)
     for r in results:
