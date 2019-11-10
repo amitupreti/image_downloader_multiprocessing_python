@@ -45,3 +45,8 @@ python3 image_downloader.py cats.txt
 ### Benchmark
 
 1183 images in 121.99 seconds with 10 process.
+
+
+### Images folder sample
+
+![cats](https://snipboard.io/VzlD78.jpg)
